@@ -1,25 +1,25 @@
 import { useState } from 'react'
 import Mensaje from './Mensaje'
 
-// Encargado de peDir al presupuesto al iniciar el formulario, página 1
+// Encargado de peDir al presupuesto al iniciar el formulario, página 1.1
 const NuevoPresupuesto = ({ presupuesto,  setPresupuesto,  setIsValidPresupuesto }) => {
     // presupuesto.- var. de estado que controla el presupuesto al iniciar la app, HEADER
     // setPresupuesto.- funcion para actualizar var. estado al iniciar la app, HEADER
-    // setIsValidPresupuesto.- funcion que actualiza la var. de estado, HEADER
+    // setIsValidPresupuesto.- funcion que actualiza la var. de estado isValidPresupuesto, HEADER
 
-    // Estados
+    // ======================================== Estados
     const [mensaje, setMensaje] = useState('');// mensaje de error para este componente
 
-    // Funciones
+    // ======================================== Funciones
     const handlePresupuesto = e => {// Envio de formulario
         e.preventDefault();
         // presupuesto viene convertido en NUMBER
         if( !presupuesto || presupuesto < 0 ) {// validar formulario
-            setMensaje('No es un presupuesto válido');
+            setMensaje('No es un presupuesto válido');// mostrar mensaje de error
             return;
         } 
-        setMensaje('');
-        setIsValidPresupuesto( true );
+        setMensaje('');// quitar mensaje de error
+        setIsValidPresupuesto( true );// Presupuesto valido pasar a la pagina 2º
     }
     return (
         <div className="contenedor-presupuesto contenedor sombra">
@@ -31,6 +31,7 @@ const NuevoPresupuesto = ({ presupuesto,  setPresupuesto,  setIsValidPresupuesto
                         type="number"
                         placeholder="Añade tu Presupuesto"
                         value={ presupuesto }
+                        /* solo se pueda meter numeros */
                         onChange={ e => setPresupuesto( Number( e.target.value ) )}
                     />
                 </div>

@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Mensaje from './Mensaje'
 import CerrarBtn from '../img/cerrar.svg'
 
+// Modal con el formulario al dar clic en boton de 2º pagina "+"
 const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto, gastoEditar,setGastoEditar
 }) => {
     // setModal .- funcion que actualiza la var. de estado del modal
@@ -11,7 +12,7 @@ const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto, gastoEditar
     // gastoEditar.- var. de estado que guarda datos al delizar hacia izquierda, APP
     // setGastoEditar.- funcion que act. var. de estado editar, APP
 
-    // Estados
+    // ====================================================== Estados
     const [mensaje, setMensaje] = useState('');// mensaje de error
     const [nombre, setNombre] = useState('');// formulario
     const [cantidad, setCantidad] = useState('');// formulario
@@ -19,8 +20,9 @@ const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto, gastoEditar
     const [id, setId] = useState('');// actualiza el ID, para saber que es editar y no de agregar
     const [fecha, setFecha] = useState('');// mismo que el ID
 
-    // Use effects
-    useEffect(() => {// se ejecuta cuando el componente este listo
+    // ====================================================== useEffects
+    // se ejecuta cuando el componente este listo
+    useEffect(() => {
         if( Object.keys( gastoEditar ).length > 0 ) {
             setNombre( gastoEditar.nombre );// actualizamos los inputs con los valores del formulario al editar
             setCantidad( gastoEditar.cantidad );// actualizamos los inputs con los valores del formulario al editar
@@ -29,11 +31,11 @@ const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto, gastoEditar
             setFecha( gastoEditar.fecha );// actualizamos los inputs con los valores del formulario al editar
         }
     }, []);
-    // Funciones
+    // ====================================================== Funciones
     const ocultarModal = () => {// Ocultar el modal al dar clic en boton X
-        setAnimarModal( false );// animar el modal 
-        setGastoEditar({});
-        setTimeout(() => {
+        setAnimarModal( false );// animar el modal al cerrar el modal
+        setGastoEditar( {} );
+        setTimeout( () => {
             setModal( false ); // cerrar el mddal
         }, 500);
     }
@@ -49,15 +51,12 @@ const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto, gastoEditar
         // Crear nuevo objeto con datos del formulario
         guardarGasto({ nombre, cantidad, categoria, id, fecha });
     }
-
     return (
         <div className="modal">
             <div className="cerrar-modal">
                 <img  src={ CerrarBtn } alt="cerrar modal" onClick={ ocultarModal } />
             </div>
-            <form onSubmit={ handleSubmit }
-                className={`formulario ${ animarModal ? "animar" : 'cerrar' }`}
-            >
+            <form onSubmit={ handleSubmit } className={`formulario ${ animarModal ? 'animar' : 'cerrar' }`} >
                 <legend>{ gastoEditar.nombre ? 'Editar Gasto' : 'Nuevo Gasto'}</legend>
                 { mensaje && <Mensaje tipo="error">{ mensaje }</Mensaje> }
                 <div className="campo">

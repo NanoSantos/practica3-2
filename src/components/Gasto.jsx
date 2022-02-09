@@ -11,7 +11,9 @@ import IconoGastos from '../img/icono_gastos.svg'
 import IconoOcio from '../img/icono_ocio.svg'
 import IconoSalud from '../img/icono_salud.svg'
 import IconoSuscripciones from '../img/icono_suscripciones.svg'
-const diccionarioIconos = {// Objeto de los iconos
+
+// Objeto de los iconos, para mostrar por c/categoria una imagen dependiendo de la categoría
+const diccionarioIconos = {
     ahorro : IconoAhorro,
     comida : IconoComida,
     casa : IconoCasa,
@@ -26,12 +28,14 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
     // setGastoEditar.- funcion que se encarga de editar la var. de estado editar, LISTADOGASTOS
     // eliminarGasto.- funcion de eliminar gasto, LISTADOGasto
 
+    // ============================================= desestructurar el gasto de gastos
     const { categoria, nombre, cantidad, id, fecha } = gasto;
 
-    // Funciones
+    // ============================================= Funciones
     const leadingActions = () => (// parte izquierda,(para mostrar un componente)
         <LeadingActions>{/* parte izquierda */}
-            <SwipeAction onClick={ () => setGastoEditar( gasto ) }>{/* action a realizar, llenar dicha variable */}
+            {/* action a realizar, llenar dicha variable */}
+            <SwipeAction onClick={ () => setGastoEditar( gasto ) }>
                 Editar
             </SwipeAction>
         </LeadingActions>
@@ -46,19 +50,12 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
             </SwipeAction>
         </TrailingActions>
     );
-
     return (
         <SwipeableList>
-            <SwipeableListItem
-                leadingActions={ leadingActions() }
-                trailingActions={ trailingActions() }
-            >
+            <SwipeableListItem leadingActions={ leadingActions() } trailingActions={ trailingActions() } >
                 <div className="gasto sombra">
                     <div className="contenido-gasto">
-                        <img 
-                            src={ diccionarioIconos[categoria] }
-                            alt="Icono Gasto"
-                        />
+                        <img  src={ diccionarioIconos[categoria] } alt="Icono Gasto" />
                         <div className="descripcion-gasto">
                             <p className="categoria">{ categoria }</p>
                             <p className="nombre-gasto">{ nombre }</p>
